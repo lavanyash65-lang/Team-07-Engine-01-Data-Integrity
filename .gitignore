@@ -1,0 +1,17 @@
+
+# Ignore all dependencies
+**/node_modules/
+
+# Protect environment variables
+.env
+**/.env
+.env.*
+**/.env.*
+!**/.env.example
+
+# Ignore build files
+**/dist/
+**/dist-ssr/
+
+# Ignore logs
+*.log

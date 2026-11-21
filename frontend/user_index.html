@@ -1,0 +1,1225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creatup | Talent Dashboard</title>
+
+<style>
+:root {
+    --purple: #7621d4;
+    --purple-light: #eee5ff;
+    --dark: #190b32;
+    --bg: #f7f5ff;
+    --white: #ffffff;
+    --text: #18122d;
+    --muted: #716982;
+    --border: #e8e0f5;
+    --green: #16a34a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #eeeaf7;
+    color: var(--text);
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 230px;
+    background: linear-gradient(180deg, #170b2d, #32145b);
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.brand {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.brand span {
+    color: #bd8cff;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 11px;
+    color: #d7c9f3;
+    margin-bottom: 30px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    color: #e8defa;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 7px;
+    cursor: pointer;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: linear-gradient(90deg, #7928d7, #542291);
+    color: white;
+}
+
+.menu .count {
+    margin-left: auto;
+    background: #a43cff;
+    padding: 3px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 230px;
+    width: calc(100% - 230px);
+}
+
+.topbar {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    gap: 20px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 550px;
+    display: flex;
+    gap: 10px;
+    background: #f0eaff;
+    padding: 12px 15px;
+    border-radius: 10px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.top-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.icon-btn {
+    border: none;
+    background: transparent;
+    font-size: 21px;
+    position: relative;
+}
+
+.notification-dot {
+    width: 8px;
+    height: 8px;
+    background: #9333ea;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c8a0ff, #7621d4);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+/* CONTENT */
+
+.content {
+    padding: 22px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.hero {
+    background: linear-gradient(110deg, #eadcff, #c99afa);
+    border-radius: 17px;
+    padding: 25px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.hero-art {
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
+    font-size: 70px;
+    opacity: 0.8;
+}
+
+.btn {
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #5815a6;
+}
+
+.btn-outline {
+    background: white;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    margin-left: 8px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    gap: 13px;
+    align-items: center;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    display: grid;
+    place-items: center;
+    font-size: 21px;
+    color: var(--purple);
+}
+
+.stat small {
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.stat strong {
+    font-size: 24px;
+}
+
+.green {
+    color: var(--green);
+    font-size: 11px;
+}
+
+/* SECTIONS */
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.panel-header h2 {
+    font-size: 18px;
+}
+
+.link {
+    color: var(--purple);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* OPPORTUNITIES */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filters select {
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+}
+
+.opportunities {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.opportunity {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    position: relative;
+    transition: .2s;
+}
+
+.opportunity:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px #4c168e15;
+}
+
+.org {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.opportunity h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.tag {
+    background: var(--purple-light);
+    color: #6824a9;
+    border-radius: 20px;
+    padding: 5px 9px;
+    font-size: 10px;
+}
+
+.details {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.apply {
+    width: 100%;
+    padding: 8px;
+    background: white;
+    border: 1px solid var(--purple);
+    color: var(--purple);
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.apply:hover {
+    background: var(--purple);
+    color: white;
+}
+
+.bookmark {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: none;
+    border: none;
+    font-size: 19px;
+    color: #777;
+}
+
+.bookmark.saved {
+    color: var(--purple);
+}
+
+/* ACTIVITY */
+
+.activity-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.activity-item:last-child {
+    border: none;
+}
+
+.activity-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    color: var(--purple);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.activity-item small {
+    display: block;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+/* PORTFOLIO */
+
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+}
+
+.work {
+    height: 130px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #a477ca, #291040);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 40px;
+}
+
+.work:nth-child(2) {
+    background: linear-gradient(135deg, #f17aab, #321039);
+}
+
+.work:nth-child(3) {
+    background: linear-gradient(135deg, #8bc0d3, #203659);
+}
+
+.work:nth-child(4) {
+    background: linear-gradient(135deg, #f5c62d, #6e22d8);
+}
+
+.work img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.work button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    background: #0008;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+/* PROFILE */
+
+.profile-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #cdaaff, #7621d4);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 30px;
+}
+
+.profile-box input,
+.profile-box textarea,
+.profile-box select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+.form-group {
+    margin: 12px 0;
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* APPLICATIONS */
+
+.application {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+
+.status {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: #16082b88;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 15px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 11px;
+    margin: 8px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.close {
+    float: right;
+    background: transparent;
+    color: #555;
+    font-size: 22px;
+    border: none;
+}
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #24103f;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 200;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+    .opportunities {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .dashboard {
+        display: block;
+    }
+    .main {
+        width: 100%;
+        margin: 0;
+    }
+    .menu {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .menu a {
+        padding: 8px;
+        font-size: 12px;
+    }
+    .opportunities {
+        grid-template-columns: 1fr;
+    }
+    .portfolio {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero-art {
+        display: none;
+    }
+    .content {
+        padding: 12px;
+    }
+    .topbar {
+        padding: 12px;
+        height: auto;
+        flex-wrap: wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+    <div class="brand"><span>✦</span> Creatup</div>
+    <div class="subtitle">A Talent-to-Opportunity Platform</div>
+
+    <nav class="menu">
+        <a class="active" data-page="overview">⌂ Overview</a>
+        <a data-page="profile">♙ Profile</a>
+        <a data-page="portfolio">▣ Portfolio</a>
+        <a data-page="opportunities">▤ Opportunities</a>
+        <a data-page="applications">▱ Applications</a>
+        <a data-page="saved">♡ Saved</a>
+        <a data-page="messages">▢ Messages <span class="count">3</span></a>
+        <a data-page="schedule">▦ Schedule</a>
+        <a data-page="settings">⚙ Settings</a>
+    </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        🔍
+        <input id="globalSearch" placeholder="Search opportunities, organizations, or skills...">
+    </div>
+
+    <div class="top-actions">
+        <button class="icon-btn" onclick="showNotifications()">♧<span class="notification-dot"></span></button>
+        <div class="avatar">LS</div>
+        <strong>Lavanya SH</strong>
+    </div>
+</header>
+
+<div class="content">
+
+<!-- OVERVIEW -->
+
+<section class="page active" id="overview">
+
+<div class="hero">
+    <h1>Hello, Lavanya! 👋</h1>
+    <p>Showcase your creativity, find opportunities,<br>
+    and get hired by top organizations.</p>
+
+    <button class="btn" onclick="openUpload()">↑ Upload New Work</button>
+    <button class="btn btn-outline" onclick="navigate('profile')">✎ Edit Profile</button>
+
+    <div class="hero-art">🎨 🎬 📷</div>
+</div>
+
+<div class="stats">
+    <div class="stat">
+        <div class="stat-icon">◉</div>
+        <div><small>Profile Views</small><strong id="views">248</strong><br><span class="green">↑ +12%</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">▣</div>
+        <div><small>Opportunities</small><strong id="oppCount">36</strong><br><span class="green">↑ +18%</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">▤</div>
+        <div><small>Applications</small><strong id="applicationCount">12</strong><br><span class="green">↑ +4%</span></div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">♡</div>
+        <div><small>Shortlisted</small><strong>3</strong><br><span class="green">↑ +50%</span></div>
+    </div>
+</div>
+
+<div class="grid">
+
+<div class="panel">
+    <div class="panel-header">
+        <h2>Recommended Opportunities</h2>
+        <span class="link" onclick="navigate('opportunities')">View All →</span>
+    </div>
+    <div class="opportunities" id="recommended"></div>
+</div>
+
+<div class="panel">
+    <div class="panel-header">
+        <h2>Recent Activity</h2>
+    </div>
+
+    <div class="activity-item">
+        <div class="activity-icon">◉</div>
+        <div>Profile viewed by <b>PixelFrame Agency</b><small>2 hours ago</small></div>
+    </div>
+
+    <div class="activity-item">
+        <div class="activity-icon">▤</div>
+        <div>Application shortlisted<small>5 hours ago</small></div>
+    </div>
+
+    <div class="activity-item">
+        <div class="activity-icon">♡</div>
+        <div>Creative Hive saved your profile<small>Yesterday</small></div>
+    </div>
+</div>
+
+</div>
+
+<div class="panel">
+    <div class="panel-header">
+        <h2>Your Portfolio</h2>
+        <span class="link" onclick="navigate('portfolio')">View All →</span>
+    </div>
+    <div class="portfolio" id="portfolioPreview"></div>
+</div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section class="page" id="profile">
+<div class="panel">
+    <div class="panel-header"><h2>My Profile</h2></div>
+
+    <div class="profile-box">
+        <div class="profile-avatar">LS</div>
+        <div>
+            <h2>Lavanya SH</h2>
+            <p>Creative Professional | Photographer</p>
+            <p>📍 Bengaluru, India</p>
+        </div>
+    </div>
+
+    <form id="profileForm">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input value="Lavanya SH" id="name">
+        </div>
+
+        <div class="form-group">
+            <label>Professional Title</label>
+            <input value="Photographer & Creative Artist" id="title">
+        </div>
+
+        <div class="form-group">
+            <label>About Me</label>
+            <textarea id="bio" rows="4">Passionate creative professional interested in photography, videography and visual storytelling.</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Skills</label>
+            <input value="Photography, Editing, Videography" id="skills">
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <select id="category">
+                <option>Photography</option>
+                <option>Videography</option>
+                <option>Music</option>
+                <option>Graphic Design</option>
+                <option>Marketing</option>
+                <option>Advertising</option>
+                <option>Entertainment</option>
+            </select>
+        </div>
+
+        <button class="btn" type="submit">Save Profile</button>
+    </form>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+
+<section class="page" id="portfolio">
+<div class="panel">
+    <div class="panel-header">
+        <h2>My Portfolio</h2>
+        <button class="btn" onclick="openUpload()">+ Upload Work</button>
+    </div>
+
+    <div class="portfolio" id="portfolioFull"></div>
+</div>
+</section>
+
+<!-- OPPORTUNITIES -->
+
+<section class="page" id="opportunities">
+<div class="panel">
+    <div class="panel-header"><h2>Explore Opportunities</h2></div>
+
+    <div class="filters">
+        <select id="categoryFilter" onchange="renderOpportunities()">
+            <option value="">All Categories</option>
+            <option>Photography</option>
+            <option>Videography</option>
+            <option>Graphic Design</option>
+            <option>Music</option>
+            <option>Marketing</option>
+            <option>Advertising</option>
+        </select>
+
+        <select id="typeFilter" onchange="renderOpportunities()">
+            <option value="">All Types</option>
+            <option>Freelance</option>
+            <option>Project-Based</option>
+            <option>Part-Time</option>
+            <option>Full-Time</option>
+        </select>
+    </div>
+
+    <div class="opportunities" id="allOpportunities"></div>
+</div>
+</section>
+
+<!-- APPLICATIONS -->
+
+<section class="page" id="applications">
+<div class="panel">
+    <div class="panel-header"><h2>My Applications</h2></div>
+    <div id="applicationList"></div>
+</div>
+</section>
+
+<!-- SAVED -->
+
+<section class="page" id="saved">
+<div class="panel">
+    <div class="panel-header"><h2>Saved Opportunities</h2></div>
+    <div class="opportunities" id="savedList"></div>
+</div>
+</section>
+
+<!-- MESSAGES -->
+
+<section class="page" id="messages">
+<div class="panel">
+    <div class="panel-header"><h2>Messages</h2></div>
+    <div class="activity-item"><div class="avatar">CH</div><div><b>Creative Hive</b><small>Interested in your graphic design portfolio.</small></div></div>
+    <div class="activity-item"><div class="avatar">PF</div><div><b>PixelFrame Agency</b><small>Can you share your availability?</small></div></div>
+    <div class="activity-item"><div class="avatar">SW</div><div><b>SoundWave Media</b><small>Thank you for applying!</small></div></div>
+</div>
+</section>
+
+<!-- SCHEDULE -->
+
+<section class="page" id="schedule">
+<div class="panel">
+    <div class="panel-header"><h2>My Schedule</h2></div>
+    <h3>Upcoming Events</h3>
+    <div class="activity-item">📅 Photography Interview – 20 Jan 2027</div>
+    <div class="activity-item">📅 Creative Hive Meeting – 22 Jan 2027</div>
+    <div class="activity-item">📅 Portfolio Review – 25 Jan 2027</div>
+</div>
+</section>
+
+<!-- SETTINGS -->
+
+<section class="page" id="settings">
+<div class="panel">
+    <div class="panel-header"><h2>Settings</h2></div>
+    <div class="form-group"><label>Email Notifications</label><input type="checkbox" checked></div>
+    <div class="form-group"><label>Profile Visibility</label><select><option>Public</option><option>Private</option></select></div>
+    <button class="btn" onclick="toast('Settings saved!')">Save Settings</button>
+</div>
+</section>
+
+</div>
+</main>
+</div>
+
+<!-- UPLOAD MODAL -->
+
+<div class="modal" id="uploadModal">
+<div class="modal-content">
+    <button class="close" onclick="closeUpload()">×</button>
+    <h2>Upload Portfolio Work</h2>
+
+    <form id="uploadForm">
+        <input id="workTitle" placeholder="Work Title" required>
+        <select id="workCategory" required>
+            <option value="">Select Category</option>
+            <option>Photography</option>
+            <option>Videography</option>
+            <option>Graphic Design</option>
+            <option>Music</option>
+            <option>Marketing</option>
+            <option>Advertising</option>
+        </select>
+        <textarea id="workDescription" placeholder="Description" rows="3"></textarea>
+        <input type="file" id="workFile" accept="image/*,video/*">
+        <button class="btn" type="submit">Upload Work</button>
+    </form>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* SAMPLE DATA */
+
+let opportunities = [
+    {id:1,org:"MotionBox Studios",title:"Videographer – Event Coverage",category:"Videography",type:"Freelance",location:"Bengaluru / Remote",deadline:"20 Jan 2027"},
+    {id:2,org:"Creative Hive",title:"Graphic Designer – Brand Campaign",category:"Graphic Design",type:"Project-Based",location:"Hubballi",deadline:"18 Jan 2027"},
+    {id:3,org:"SoundWave Media",title:"Music Composer – Short Film",category:"Music",type:"Freelance",location:"Remote",deadline:"25 Jan 2027"},
+    {id:4,org:"PixelFrame Agency",title:"Event Photographer",category:"Photography",type:"Freelance",location:"Bengaluru",deadline:"28 Jan 2027"},
+    {id:5,org:"BrandBuzz",title:"Digital Marketing Campaign",category:"Marketing",type:"Project-Based",location:"Remote",deadline:"30 Jan 2027"},
+    {id:6,org:"AdVision",title:"Creative Advertisement Designer",category:"Advertising",type:"Part-Time",location:"Bengaluru",deadline:"02 Feb 2027"}
+];
+
+let applications = [];
+let saved = [];
+let portfolio = [
+    {title:"Photography Project",icon:"📸"},
+    {title:"Creative Design",icon:"🎨"},
+    {title:"Videography",icon:"🎬"},
+    {title:"Visual Art",icon:"🖼️"}
+];
+
+/* NAVIGATION */
+
+function navigate(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+
+    document.querySelectorAll(".menu a").forEach(a => a.classList.remove("active"));
+    document.querySelector(`[data-page="${page}"]`)?.classList.add("active");
+
+    if(page === "opportunities") renderOpportunities();
+    if(page === "saved") renderSaved();
+    if(page === "applications") renderApplications();
+    if(page === "portfolio") renderPortfolio();
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-page]").forEach(link => {
+    link.addEventListener("click", () => navigate(link.dataset.page));
+});
+
+/* OPPORTUNITY CARD */
+
+function opportunityCard(o) {
+    let isSaved = saved.includes(o.id);
+    let isApplied = applications.some(a => a.id === o.id);
+
+    return `
+    <div class="opportunity">
+        <button class="bookmark ${isSaved?'saved':''}" onclick="toggleSave(${o.id})">
+            ${isSaved?'♥':'♡'}
+        </button>
+
+        <div class="org">${o.org}</div>
+        <h3>${o.title}</h3>
+
+        <div class="tags">
+            <span class="tag">${o.category}</span>
+            <span class="tag">${o.type}</span>
+        </div>
+
+        <div class="details">
+            📍 ${o.location}<br>
+            📅 Apply by ${o.deadline}
+        </div>
+
+        <button class="apply" onclick="applyOpportunity(${o.id})">
+            ${isApplied?'Applied ✓':'Apply Now'}
+        </button>
+    </div>`;
+}
+
+/* RENDER OPPORTUNITIES */
+
+function renderOpportunities() {
+    let category = document.getElementById("categoryFilter").value;
+    let type = document.getElementById("typeFilter").value;
+
+    let filtered = opportunities.filter(o =>
+        (!category || o.category === category) &&
+        (!type || o.type === type)
+    );
+
+    document.getElementById("allOpportunities").innerHTML =
+        filtered.length
+        ? filtered.map(opportunityCard).join("")
+        : "<p>No opportunities found.</p>";
+}
+
+/* APPLY */
+
+function applyOpportunity(id) {
+    if(applications.some(a => a.id === id)) {
+        toast("You have already applied!");
+        return;
+    }
+
+    let o = opportunities.find(o => o.id === id);
+    applications.push(o);
+
+    document.getElementById("applicationCount").textContent = applications.length;
+
+    renderOpportunities();
+    renderRecommended();
+    toast("Application submitted successfully!");
+}
+
+function renderApplications() {
+    let list = document.getElementById("applicationList");
+
+    if(!applications.length) {
+        list.innerHTML = "<p>No applications yet. Explore opportunities and apply!</p>";
+        return;
+    }
+
+    list.innerHTML = applications.map(o => `
+        <div class="application">
+            <div><b>${o.title}</b><br>${o.org}</div>
+            <span class="status">Applied</span>
+        </div>
+    `).join("");
+}
+
+/* SAVE */
+
+function toggleSave(id) {
+    if(saved.includes(id)) {
+        saved = saved.filter(x => x !== id);
+        toast("Removed from saved opportunities");
+    } else {
+        saved.push(id);
+        toast("Opportunity saved!");
+    }
+
+    renderOpportunities();
+    renderRecommended();
+    renderSaved();
+}
+
+function renderSaved() {
+    let list = opportunities.filter(o => saved.includes(o.id));
+
+    document.getElementById("savedList").innerHTML =
+        list.length
+        ? list.map(opportunityCard).join("")
+        : "<p>No saved opportunities.</p>";
+}
+
+/* RECOMMENDED */
+
+function renderRecommended() {
+    document.getElementById("recommended").innerHTML =
+        opportunities.slice(0,3).map(opportunityCard).join("");
+}
+
+/* PORTFOLIO */
+
+function renderPortfolio() {
+    let html = portfolio.map(w => `
+        <div class="work">
+            ${w.icon || ""}
+            <span>${w.title}</span>
+        </div>
+    `).join("");
+
+    document.getElementById("portfolioFull").innerHTML = html;
+    document.getElementById("portfolioPreview").innerHTML = html;
+}
+
+function openUpload() {
+    document.getElementById("uploadModal").classList.add("show");
+}
+
+function closeUpload() {
+    document.getElementById("uploadModal").classList.remove("show");
+}
+
+document.getElementById("uploadForm").addEventListener("submit",function(e){
+    e.preventDefault();
+
+    let title = document.getElementById("workTitle").value;
+    let category = document.getElementById("workCategory").value;
+    let file = document.getElementById("workFile").files[0];
+
+    let icon = "🎨";
+    if(category === "Photography") icon = "📸";
+    if(category === "Videography") icon = "🎬";
+    if(category === "Music") icon = "🎵";
+
+    portfolio.push({title,category,icon,file});
+
+    renderPortfolio();
+    this.reset();
+    closeUpload();
+    toast("Portfolio work uploaded successfully!");
+});
+
+/* PROFILE */
+
+document.getElementById("profileForm").addEventListener("submit",function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    document.querySelector(".top-actions strong").textContent = name;
+    document.querySelector(".hero h1").textContent = "Hello, "+name+"! 👋";
+
+    toast("Profile updated successfully!");
+});
+
+/* SEARCH */
+
+document.getElementById("globalSearch").addEventListener("input",function(){
+    let q = this.value.toLowerCase();
+
+    let result = opportunities.filter(o =>
+        o.title.toLowerCase().includes(q) ||
+        o.org.toLowerCase().includes(q) ||
+        o.category.toLowerCase().includes(q)
+    );
+
+    if(q) {
+        navigate("opportunities");
+        document.getElementById("allOpportunities").innerHTML =
+            result.map(opportunityCard).join("") ||
+            "<p>No matching opportunities found.</p>";
+    }
+});
+
+/* NOTIFICATIONS */
+
+function showNotifications() {
+    toast("You have 3 new notifications!");
+}
+
+/* TOAST */
+
+function toast(message) {
+    let t = document.getElementById("toast");
+    t.textContent = message;
+    t.style.display = "block";
+
+    setTimeout(() => {
+        t.style.display = "none";
+    },2500);
+}
+
+/* INITIALIZE */
+
+renderRecommended();
+renderPortfolio();
+renderOpportunities();
+
+</script>
+
+</body>
+</html>
